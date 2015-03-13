@@ -1,0 +1,17 @@
+.photo {
+    width: 100px;
+    height:100px;
+    float: left;
+    margin: 5px;
+}
+.post {
+    border-style: solid;
+    border-color: black;
+    margin: 10px;
+    width: 90%;
+    float: left;
+  
+}
+.container {
+    max-width: 900px;
+}
