@@ -79,8 +79,7 @@
           <div class='col-xs-8'>
               
               <?php
-              
-              $Rnumber = rand(1,10);
+              $Rnumber = rand(1,count($posts));
               echo  "<br> $Rnumber <br>";
               
               for ($i=0; $i < $Rnumber; $i++){
