@@ -54,20 +54,30 @@ Route::post('add_item_action', function()
 
 Route::get('update_item/{id}', function($id)
 {
+  $item = get_item($id);
+  return View::make('items.update_item')->withItem($item);
 
 });
 
 Route::post('update_item_action', function()
 {
+  $id = Input::get('id');
+  $summary = Input::get('summary');
+  $details = Input::get('details');
+  
+   update_item($id, $summary, $details);
 
+    return Redirect::to(url("item_detail/$id"));
+    
 });
 
 Route::get('delete_item_action/{id}', function($id)
 {
-
+  
+  delete_item($id);
+  return Redirect::to(url("item_list"));
+  
 });
-
-
 
 function get_items()
 {
@@ -102,4 +112,18 @@ function add_item($summary, $details)
   $id = DB::getPdo()->lastInsertId();
 
   return $id;
+}
+
+function update_item($id, $summary, $details)
+{
+  $sql = "update item set summary = ?, details = ? where id = ?";
+  DB::update($sql, array($summary,$details,$id));
+  
+}
+
+function delete_item($id)
+{
+  $sql = "delete from item where id = ?";
+  DB::delete($sql, array($id));
+  
 }
