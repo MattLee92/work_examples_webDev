@@ -7,7 +7,7 @@
 <h1>View Comments</h1>
 
 @stop
-                    {{--<img class="photo" src="{{{ $post[0]->profile }}}">--}}
+              
 
 
 
@@ -15,11 +15,23 @@
 
 <h3>Add Comment</h3>
   
+    @if($success != true)
+    
+        <div class='panel-group'>
+            <div class='panel panel-danger'>
+              <div class='panel-heading'>COULD NOT CREATE COMMENT</div>
+              <div class='panel-body'>Ensure all fields are entered.</div>
+            </div>
+        </div>
+    
+    @endif
+  
 <form method="post" action="{{{ url("add_comment_action") }}}"">
+    
       <input type="hidden" name="id" value="{{{ $post[0]->id }}}"/>
       <label for='name'>UserName:</label>
       <input class="form-control" type = 'text' name = 'name'>
-     <label for='msgpost'>Comment for post:</label> 
+      <label for='msgpost'>Comment for post:</label> 
       <textarea class="form-control"name="msgpost" rows='4'cols='16'></textarea><br>
       <button class="btn btn-primary btn-block" type="submit">Post Comment</button>
 </form>
@@ -30,6 +42,7 @@
 
   <div class="panel-group">
     <div class="panel panel-primary">
+          <img class="photo" src="../../{{{ $post[0]->profile }}}">
       <div class="panel-heading">{{{ $post[0]->title }}}</div>
       <div class="panel-body">{{{ $post[0]->message }}}</div>
       <div class="panel panel-success">{{{ $post[0]->user }}}</div>

@@ -89,7 +89,13 @@ a:hover { text-decoration: underline; }
 }
 .photo {
     width: 100px;
-    height:100%;
+    height:100px;
+    float: left;
+    margin-right:5px;
+}
+.photo_doc {
+    width: 600px;
+    height:400px;
     float: left;
     margin-right:5px;
 }

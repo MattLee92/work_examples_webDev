@@ -14,6 +14,16 @@
 
 @section('content')
 
+    @if($success != true)
+    
+        <div class='panel-group'>
+            <div class='panel panel-danger'>
+              <div class='panel-heading'>COULD NOT EDIT POST</div>
+              <div class='panel-body'>Ensure all fields are entered.</div>
+            </div>
+        </div>
+    
+    @endif
 <form method="post" action="{{{ url('update_post_action') }}}">
         <input type="hidden" name="id" value="{{{ $post[0]->id }}}"> 
     <label for='name'>UserName:</label> 

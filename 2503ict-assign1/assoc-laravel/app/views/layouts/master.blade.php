@@ -41,9 +41,8 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="./">Photos</a></li>
-              <li><a href="../navbar-static-top/">Friends</a></li>
-              <li><a href="../navbar-fixed-top/">Login</a></li>
+              <li><a href="index.php">Timeline</a></li>
+              <li><a href="{{{ url("doc_get") }}}">ER Diagram</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
