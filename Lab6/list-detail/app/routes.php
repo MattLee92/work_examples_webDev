@@ -16,11 +16,7 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::get('item_list', function()
-{
-  $items = get_items();
-  return View::make('items.item_list')->withItems($items);
-});
+
 
 /* Displays item with the given id. */
 Route::get('item_detail/{id}', function ($id)
@@ -82,10 +78,16 @@ Route::get('delete_item_action/{id}', function($id)
 function get_items()
 {
   $sql = "select * from item";
-  $items = DB::select($sql);
-  return $items;
+  $posts = DB::select($sql);;
+  return $posts;
 }
 
+function get_comment_count($id)
+{
+  $sql = "SELECT COUNT(*) AS count FROM comments WHERE p_id = ?";
+  $count = DB::select($sql,array($id));
+  return $count;
+}
 /* Gets item with the given id */
 function get_item($id)
 {

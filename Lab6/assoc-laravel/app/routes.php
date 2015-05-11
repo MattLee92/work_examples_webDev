@@ -36,8 +36,8 @@ Route::get('search', function()
 function search($query) {
 
 	if (!empty($query)) {
-		$sql = "select * from pms where name like ?";
-    	$pms = DB::select($sql, array("%$query%"));
+		$sql = "select * from pms where name like ? or state like ? or start like ? or finish like ?";
+    	$pms = DB::select($sql, array("%$query%","%$query%","%$query%","%$query%",));
     
 	} else {
 		$sql = "select * from pms";
