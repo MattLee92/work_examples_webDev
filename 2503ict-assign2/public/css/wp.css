@@ -1,0 +1,101 @@
+body { 
+    font-family: Verdana, Arial, Helvetica, sans-serif; 
+    font-weight: normal;
+    font-style: normal;
+    color: black;
+    background-image: url("../images/background.png");
+    background-color:#cccccc;
+}
+
+h1 { 
+    font-weight: bold; 
+    background-color: #337AB7; 
+    color:white;
+    text-align:center;
+    border-style:inset;
+    border-color:blue;
+    
+}
+h2 { font-weight: bold; color: #006666; }
+h3 {    
+    font-weight: bold; 
+    background-color: #337AB7; 
+    color:white;
+    text-align:center;
+    border-style:inset;
+    border-color:blue;
+    
+}
+h4 { font-weight: bold; font-style: italic; color: #669900; }
+
+p { margin-left: 0em; }
+
+table { font-family: Verdana, Arial, Helvetica, sans-serif; }
+caption { font-weight: bold; }
+th { font-weight: bold; background-color: blue; color: white; padding: 2px; }
+td { padding: 2px; }
+/* tr { background-color: white; } */
+
+table.bordered    { border: solid; border-width: thin; }
+table.bordered td { border: solid; border-width: thin; }
+table.bordered th { border: solid; border-width: thin; border-color: black; }
+
+address { margin-left: 0in; font-style: italic; }       
+
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:active { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.alert { font-weight: bold; font-style: italic; color: red; }
+
+.eg { 
+    font-family: Monaco, Courier, "Courier New", monospace;
+    background-color: #FFFFE0;
+    border-style: groove; 
+    border: thin;
+    padding: 5px;
+}
+.post {
+    border-style: solid;
+    border-color: black;
+    margin: 10px;
+    width: 90%;
+    float: left;
+  
+}
+.user{
+    background-color: #eee;
+   
+}
+.title{
+      background-color: #5bc0de;
+}
+.message{
+      background-color: #777;
+}
+.comment {
+    border-style: solid;
+    border-color: black;
+    margin: 10px;
+    width: 70%;
+    float: left;
+}
+.editDeleteGroup {
+    float: right;
+}
+.viewComments {
+    float: right;
+}
+.photo {
+    width: 100px;
+    height:100px;
+    float: left;
+    margin-right:5px;
+}
+.photo_doc {
+    width: 600px;
+    height:400px;
+    float: left;
+    margin-right:5px;
+}

@@ -1,0 +1,90 @@
+<?php echo HTML::style('css/wp.css'); ?>
+
+
+<?php $__env->startSection('sidepane'); ?>
+
+<div class="panel-group">
+    <div class="panel panel-primary">
+        <img class="photo" src="<?php echo asset($user->image->url('thumb')); ?>">
+        <div class="panel-heading"><?php echo e($user->fullname); ?><p><?php echo e($age); ?></p></div>
+        <div class="panel-body"><?php echo e($user->email); ?></div>
+        <?php if(Auth::check()): ?>
+        
+            <?php if($friends == 0): ?>
+                <?php echo Form::open(['method' => 'POST', 'action' => ['FriendsUserController@store']]); ?>
+
+                <?php echo Form::hidden('adder_id', Auth::user()->id); ?>
+
+                <?php echo Form::hidden('friend_id', $user->id); ?>
+
+                <button type="submit" class="btn btn-success btn-xs">Add Friend</button>
+                <?php echo Form::close(); ?>
+
+            <?php else: ?>
+                <?php echo Form::open(['method' => 'DELETE', 'action' => ['FriendsUserController@destroy', Auth::user()->id]]); ?>
+
+                <?php echo Form::hidden('friend_id', $user->id); ?>
+
+                <button type="submit" class="btn btn-danger btn-xs">Remove Friend</button>
+                <?php echo Form::close(); ?>
+
+            <?php endif; ?>
+           
+        <?php endif; ?>
+        
+        <li> <?php echo link_to_route('friend.show', 'View Friends', array($user->id)); ?></li>
+    </div>
+</div>
+    
+    <div>
+        
+    </div>
+    
+
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+
+<h3>Profile</h3>
+
+<?php foreach( $posts as $ps): ?>
+
+
+        
+        <div>
+            <div>
+            <?php if(Auth::check()): ?>
+            <?php if(Auth::user()->id == $ps->user_id): ?>
+                <div class="editDeleteGroup">
+                <div class="btn-group">
+                <li class="btn btn-warning btn-xs"><?php echo link_to_route('post.edit', 'Edit', array($ps->id)); ?></li>
+                <?php echo Form::open(['method' => 'DELETE', 'action' => ['PostController@destroy', $ps->id]]); ?>
+
+                <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+                <?php echo Form::close(); ?>
+
+                </div>
+                </div>
+            <?php endif; ?>
+            <?php endif; ?>
+            
+                <div class="panel-group">
+                    <div class="panel panel-primary">
+                        <img class="photo" src="<?php echo asset($user->image->url('thumb')); ?>">
+                        <div class="panel-heading"><?php echo e($ps->title); ?></div>
+                        <div class="panel-body"><?php echo e($ps->message); ?></div>
+                        <div class="panel panel-success"><?php echo e($ps->user_id); ?> 
+                        <li class="btn btn-success btn-xs"><?php echo link_to_route('comment.show', 'View Comments', array($ps->id)); ?></li>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+     
+    
+  
+<?php endforeach; ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,92 @@
+<?php echo HTML::style('css/wp.css'); ?>
+
+
+<?php $__env->startSection('header'); ?>
+
+<h1>View Comments</h1>
+
+<?php $__env->stopSection(); ?>
+
+
+
+<?php $__env->startSection('sidepane'); ?>
+
+
+<?php if(Auth::check()): ?>
+
+<h3>Add Comment</h3>
+  
+  <?php echo Form::open(array('action' => 'CommentController@store')); ?>
+
+  
+
+  <?php echo Form::hidden('id', Auth::user()->id); ?>
+
+  <?php echo Form::hidden('post_id', $post->id); ?>
+
+  
+  <?php echo Form::label('email', 'Email:'); ?>
+
+  <?php echo Form::text('email', Auth::user()->email, ['class' => 'form-control', 'readonly']); ?>
+
+  <p></p>
+  <?php echo Form::label('message', 'Message:'); ?>
+
+  <?php echo Form::textarea('message', null, ['class' => 'form-control']); ?>
+
+  <?php if($errors->first('message') != null): ?>
+    <div class="panel panel-danger">
+      <div class="panel-heading"><?php echo $errors->first('message'); ?></div>
+    </div>
+    <?php endif; ?>
+  <p></p>
+  <?php echo Form::submit('Comment', array('class' => 'btn btn-primary btn-block')); ?>
+
+
+  <?php echo Form::close(); ?>
+
+
+<?php endif; ?>
+
+
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+
+  <div class="panel-group">
+    <div class="panel panel-primary">
+      
+      <div class="panel-heading"><?php echo e($post->title); ?></div>
+      <div class="panel-body"><?php echo e($post->message); ?></div>
+      <div class="panel panel-success"><?php echo e($post->user_id); ?></div>
+    </div>
+  </div>
+
+
+
+<?php foreach( $comments as $cm): ?>
+
+
+    <div class="panel-group">
+      <?php if(Auth::user()->id == $cm->user_id): ?>
+      <div class="editDeleteGroup">
+            <?php echo Form::open(['method' => 'DELETE', 'action' => ['CommentController@destroy', $cm->id]]); ?>
+
+            <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+            <?php echo Form::close(); ?>
+
+      </div>
+      <?php endif; ?>
+      
+      <div class="panel panel-info">
+        <div class="panel-body"><?php echo e($cm->message); ?></div>
+        <div class="panel panel-success"><?php echo e($cm->user_id); ?></div>
+      </div>
+    </div>
+<?php endforeach; ?>
+
+<?php echo $comments->links(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,101 @@
+<?php echo HTML::style('css/wp.css'); ?>
+
+
+<?php $__env->startSection('header'); ?>
+
+
+    <h1>CreateUser</h1>
+
+
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('sidepane'); ?>
+
+
+
+    
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+
+
+    <?php echo Form::open(array('action' => 'UserController@store', 'files' => true)); ?>
+
+
+    <?php echo Form::label('email', 'Email:'); ?>
+
+    <?php echo Form::text('email', null, ['class' => 'form-control']); ?>
+
+    <?php if($errors->first('email') != null): ?>
+    <div class="panel panel-danger">
+      <div class="panel-heading"><?php echo $errors->first('email'); ?></div>
+    </div>
+    <?php endif; ?>
+    <p></p>
+    <?php echo Form::label('name', 'Name:'); ?>
+
+    <?php echo Form::text('name', null, ['class' => 'form-control']); ?>
+
+    <?php if($errors->first('name') != null): ?>
+    <div class="panel panel-danger">
+      <div class="panel-heading"><?php echo $errors->first('name'); ?></div>
+    </div>
+    <?php endif; ?>
+     
+    <p></p>
+    <?php echo Form::label('password', 'Enter Password:'); ?>
+
+    <?php echo Form::password('password', ['class' => 'form-control']); ?>
+
+    <p></p>
+    <?php echo Form::label('passwordcon', 'Cofirm Password:'); ?>
+
+    <?php echo Form::password('passwordcon', ['class' => 'form-control']); ?>
+
+    <?php if($errors->first('password') != null): ?>
+    <div class="panel panel-danger">
+      <div class="panel-heading"><?php echo $errors->first('password'); ?></div>
+    </div>
+    <?php endif; ?>
+  
+    <p></p>
+    <?php echo Form::label('dob', 'Enter Date of Birth:'); ?>
+
+    <p></p>
+    <?php echo Form::label('day', 'Day:'); ?>
+
+    <?php echo Form::selectRange('day', 1, 31, null, ['class' => 'form-control']); ?>
+
+
+    <?php echo Form::label('month', 'Month:'); ?>
+
+    <?php echo Form::selectMonth('month', null, ['class' => 'form-control']); ?>
+
+    
+    <?php echo Form::label('year', 'Year:'); ?>
+
+    <?php echo Form::selectRange('year', 1901, 2015, null, ['class' => 'form-control']); ?>
+
+    <p></p>
+    <?php echo Form::label('image', 'Profile Image:'); ?>
+
+    <?php echo Form::file('image', null, ['class' => 'btn btn-primary btn-block']); ?>
+
+    <p></p>
+    <?php echo Form::submit('Sign Up', array('class' => 'btn btn-primary btn-block')); ?>
+
+
+    <?php echo Form::close(); ?>
+
+
+
+
+<?php $__env->stopSection(); ?>
+
+
+
+
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

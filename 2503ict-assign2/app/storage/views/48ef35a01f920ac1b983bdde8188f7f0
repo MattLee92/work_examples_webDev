@@ -1,0 +1,28 @@
+<?php echo HTML::style('css/wp.css'); ?>
+
+
+
+<?php $__env->startSection('sidepane'); ?>
+
+<?php $__env->stopSection(); ?>
+
+
+
+
+
+
+<?php $__env->startSection('content'); ?>
+
+<h3>Friends</h3>
+
+<ul>
+<?php foreach( $friends as $friend): ?>
+
+<li><?php echo e($friend->user_id); ?></li>
+
+<?php endforeach; ?>
+</ul>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

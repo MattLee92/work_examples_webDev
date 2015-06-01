@@ -1,0 +1,61 @@
+<?php $__env->startSection('header'); ?>
+
+<h1>Edit Post</h1>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('sidepane'); ?>
+
+
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+
+<?php echo Form::model($post, array('method' => 'PUT', 'route' => array('post.update', $post->id))); ?>
+
+
+<?php echo Form::label('title', 'Title:'); ?>
+
+<?php echo Form::text('title', null, ['class' => 'form-control']); ?>
+
+<?php if($errors->first('title') != null): ?>
+    <div class="panel panel-danger">
+      <div class="panel-heading"><?php echo $errors->first('title'); ?></div>
+    </div>
+    <?php endif; ?>
+<p></p>
+<?php echo Form::label('message', 'Message:'); ?>
+
+<?php echo Form::textarea('message', null, ['class' => 'form-control']); ?>
+
+<?php if($errors->first('message') != null): ?>
+    <div class="panel panel-danger">
+      <div class="panel-heading"><?php echo $errors->first('message'); ?></div>
+    </div>
+    <?php endif; ?>
+<p></p>
+<?php echo Form::label('privacy', 'Privacy Level:'); ?>
+
+<?php echo Form::select('privacy_level', array('Public' => 'Public', 'Friends' => 'Friends', 'Private' => 'Private'), null, ['class' => 'form-control']); ?>
+
+<p></p>
+<?php echo Form::submit('Save', array('class' => 'btn btn-primary btn-block')); ?>
+
+
+<?php echo Form::close(); ?>
+
+
+
+
+
+ 
+<?php $__env->stopSection(); ?>
+
+
+
+
+
+
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

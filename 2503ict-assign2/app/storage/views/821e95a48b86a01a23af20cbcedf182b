@@ -1,0 +1,158 @@
+<?php $__env->startSection('header'); ?>
+
+
+    <h1>Timeline</h1>
+ 
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('sidepane'); ?>
+
+
+
+
+
+
+ <?php if(Auth::check()): ?>
+      
+      <h3>User: <?php echo e(Auth::user()->fullname); ?></h3>
+        <li class="btn btn-success btn-block"><?php echo link_to_route('user.edit', 'Edit Details', array(Auth::user()->id)); ?></li>
+        <li class="btn btn-danger btn-block"><?php echo link_to_route('user.logout', 'Sign Out'); ?></li>
+     
+      
+      
+<h3>Create Post</h3>
+
+
+  <?php echo Form::open(array('action' => 'PostController@store')); ?>
+
+  
+
+    <?php echo Form::hidden('id', Auth::user()->id); ?>
+
+  
+  
+    <?php echo Form::label('title', 'Title:'); ?>
+
+    <?php echo Form::text('title', null, ['class' => 'form-control']); ?>
+
+    <?php if($errors->first('title') != null): ?>
+    <div class="panel panel-danger">
+      <div class="panel-heading"><?php echo $errors->first('title'); ?></div>
+    </div>
+    <?php endif; ?>
+    <p></p>
+    <?php echo Form::label('message', 'Message:'); ?>
+
+    <?php echo Form::textarea('message', null, ['class' => 'form-control']); ?>
+
+    <?php if($errors->first('message') != null): ?>
+    <div class="panel panel-danger">
+      <div class="panel-heading"><?php echo $errors->first('message'); ?></div>
+    </div>
+    <?php endif; ?>
+    <p></p>
+    <?php echo Form::label('privacy', 'Privacy Level:'); ?>
+
+    <?php echo Form::select('privacy_level', array('Public' => 'Public', 'Friends' => 'Friends', 'Private' => 'Private'), null, ['class' => 'form-control']); ?>
+
+    <p></p>
+    <?php echo Form::submit('Post', array('class' => 'btn btn-primary btn-block')); ?>
+
+
+    <?php echo Form::close(); ?>
+
+    
+
+
+    <?php else: ?>
+    
+    <h3>Login</h3>
+   <p style = 'color:Red'> <?php echo Session::get('login_error'); ?> </p>
+    
+    <?php echo Form::open(array('url'=>secure_url('user/login'))); ?>
+
+      <?php echo Form::label('email','Email:'); ?>
+
+      <?php echo Form::text('email', null, ['class' => 'form-control']); ?>
+
+      <p></p>
+      <?php echo Form::label('password','Password:'); ?>
+
+      <?php echo Form::password('password', ['class' => 'form-control']); ?>
+
+      <p></p>
+      <?php echo Form::submit('Log in', array('class' => 'btn btn-primary btn-block')); ?>
+
+      <li class="btn btn-success btn-block"><?php echo link_to_route('user.create', 'Sign Up'); ?></li>
+    <?php echo Form::close(); ?>
+
+    
+   
+    <?php endif; ?>
+
+<h3>Search User</h3>
+ <?php echo Form::open(array('action' => 'UserController@search')); ?>
+
+
+  <?php echo Form::label('srch', 'Search Users:'); ?>
+
+  <?php echo Form::text('srch', null, ['class' => 'form-control']); ?>
+
+  <p></p>  
+  <?php echo Form::submit('Search', array('class' => 'btn btn-primary btn-block')); ?>
+
+
+  <?php echo Form::close(); ?>
+
+                  
+                  
+
+
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+
+<?php foreach( $posts as $ps): ?>
+<div>
+
+            <?php if(Auth::check()): ?>
+            <?php if(Auth::user()->id == $ps->user_id): ?>
+            
+                <div class="editDeleteGroup">
+        <div class="btn-group">
+            <li class="btn btn-warning btn-xs"><?php echo link_to_route('post.edit', 'Edit', array($ps->id)); ?></li>
+            <?php echo Form::open(['method' => 'DELETE', 'action' => ['PostController@destroy', $ps->id]]); ?>
+
+            <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+            <?php echo Form::close(); ?>
+
+              </div>
+                </div>
+            <?php endif; ?>
+            <?php endif; ?>
+                <div class="panel-group">
+                  <div class="panel panel-primary">
+                    <img class="photo" src="<?php echo e($ps->profile); ?>">
+                    <div class="panel-heading"><?php echo e($ps->title); ?></div>
+                    <div class="panel-body"><?php echo e($ps->message); ?></div>
+                    
+                    <div class="panel panel-success"><?php echo e($ps->users); ?> 
+                        <li class="btn btn-success btn-xs"><?php echo link_to_route('comment.show', 'View Comments', array($ps->id)); ?></li>
+           
+                    </div>
+                </div>
+            </div>            
+ 
+</div>
+
+<?php endforeach; ?>
+
+<?php $__env->stopSection(); ?>
+
+
+
+
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

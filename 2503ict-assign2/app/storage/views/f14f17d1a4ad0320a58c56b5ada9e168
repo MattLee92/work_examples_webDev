@@ -1,0 +1,32 @@
+<?php echo HTML::style('css/wp.css'); ?>
+
+
+<?php $__env->startSection('sidepane'); ?>
+
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+
+<h3>Searching for users matching: <?php echo e($srch); ?> </h3>
+
+<?php foreach( $searchRes as $use): ?>
+
+    
+    <div class="panel-group">
+    <div class="panel panel-primary">
+        <img class="photo" src="<?php echo asset($use->image->url('thumb')); ?>">
+        <div class="panel-heading"><?php echo e($use->fullname); ?></div>
+        <div class="panel-body"><?php echo link_to_route('user.show', 'View Profile' , array($use->id)); ?></div>
+    </div>
+    
+
+
+<?php endforeach; ?>
+
+
+
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,66 @@
+<?php $__env->startSection('header'); ?>
+
+
+    <h1>Timeline</h1>
+
+
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('sidepane'); ?>
+
+<h3>Create Post</h3>
+
+
+    
+    
+    
+<form method="post" action="add_post_action">
+    <label for='name'>UserName:</label> 
+        <input class="form-control" type = 'text' name = 'name'>
+    <label for='title'>Title:</label> 
+        <input class="form-control" type = 'text' name = 'title'>
+    <label for='msgpost'>What's on your mind?</label></label> 
+        <textarea class="form-control" name="msgpost" rows='4'cols='16'></textarea>
+        <br>
+    <button class="btn btn-primary btn-block">Post</button>
+    
+  
+    
+    
+    
+</form>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+
+<?php foreach( $posts as $ps): ?>
+  
+<div>
+    <div class="editDeleteGroup">
+        <div class="btn-group">
+            <a class="btn btn-warning btn-xs" href="<?php echo e(url("update_post/$ps->id")); ?>">Edit</a>
+            <a class="btn btn-danger btn-xs" href="<?php echo e(url("delete_post_action/$ps->id")); ?>">Delete</a>
+        </div>
+    </div>
+            <div class="panel-group">
+                  <div class="panel panel-primary">
+                    <img class="photo" src="<?php echo e($ps->profile); ?>">
+                    <div class="panel-heading"><?php echo e($ps->title); ?></div>
+                    <div class="panel-body"><?php echo e($ps->message); ?></div>
+                    <div class="panel panel-success"><?php echo e($ps->user); ?>  <a class="btn btn-link btn-xs" href="<?php echo e(url("view_comments/$ps->id")); ?>">View Comments <span class="badge"><?php echo e($count[$ps->id]); ?></span> </a>
+                    </div>
+                </div>
+            </div>
+</div>
+
+<?php endforeach; ?>
+
+<?php $__env->stopSection(); ?>
+
+
+
+
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
